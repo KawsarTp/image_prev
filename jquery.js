@@ -59,3 +59,24 @@ var copyButton = document.querySelector('.copy button');
  $('#donateAmount').on('keyup paste',function(){
       this.value = this.value.replace(/[^0-9]/g, '');
     })
+
+
+// get radio value in input
+$(".donated-amount input[type='radio']").each(function() {
+      $(this).on('click', function(){
+        var selValue = $(".donated-amount input[type='radio']:checked").val();
+        $('#donateAmount').attr('value', selValue);
+        console.log(selValue);
+      });
+ 
+        
+        
+//progress bar
+         $(".progressbar").each(function(){
+	$(this).find(".bar").animate({
+		"width": $(this).attr("data-perc")
+	},3000);
+	$(this).find(".label").animate({
+		"left": $(this).attr("data-perc")
+	},3000);
+});
