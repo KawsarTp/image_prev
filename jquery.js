@@ -80,3 +80,48 @@ $(".donated-amount input[type='radio']").each(function() {
 		"left": $(this).attr("data-perc")
 	},3000);
 });
+
+	
+// 	multiple file upload with preview
+	let idcounter = 1;
+
+            $('.add').on('click', function(e) {
+                e.preventDefault()
+
+                let html = `
+                
+                <div class="col-md-3 removeGallery mb-3">
+                            <button class="btn btn-danger removeBtn"><i class="fa fa-times"></i></button>
+                            <div id="image-preview-${idcounter}" class="image-preview w-100">
+                                <label for="image-upload" id="image-label-${idcounter}">{{ __('Choose File') }}</label>
+                                <input type="file" class="imageUploader" name="gallery[]" id="image-upload-${idcounter}" data-id="${idcounter}" />
+                            </div>
+
+                        </div>
+                
+                `;
+                $('#gallery').append(html);
+
+                idcounter++;
+
+            })
+
+            $(document).on('change', '.imageUploader', function() {
+                showImagePreview(this, "#image-preview-" + $(this).data('id'));
+            })
+
+            function showImagePreview(input, id) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $(id).css('background-image', "url(" + e.target.result + ")");
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(document).on('click', '.removeBtn', function() {
+                $(this).parent('.removeGallery').remove();
+            })
